@@ -3,6 +3,8 @@ galaxy_info:
   description: your role description
   company: your company (optional)
 
+  role_name: ros2
+  namespace: dreuter
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
   # issue_tracker_url: http://example.com/issue/tracker
