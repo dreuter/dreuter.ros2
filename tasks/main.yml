@@ -1,2 +1,4 @@
 ---
-# tasks file for dreuter.ros2
+- name: This role only works on Ubuntu
+  assert:
+    that: ansible_facts['distribution'] == 'Ubuntu'
