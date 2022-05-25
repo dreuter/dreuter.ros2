@@ -1,12 +1,35 @@
 ---
-- name: Converge
-  hosts: all
+- name: "Install ros2 rolling ros-base"
+  hosts: jammy_rolling
   tasks:
-    # replace these tasks with whatever you find suitable to test
-    - name: Copy something to test use of synchronize module
-      ansible.builtin.copy:
-        src: /etc/hosts
-        dest: /tmp/hosts-from-controller
-    - name: "Include dreuter.ros2"
-      ansible.builtin.include_role:
-        name: "dreuter.ros2"
+  - include_role:
+      name: "dreuter.ros2"
+    vars:
+      ros_metapackage: ros-base
+
+- name: "Install ros2 humble ros-base"
+  hosts: jammy_humble
+  tasks:
+  - include_role:
+      name: "dreuter.ros2"
+    vars:
+      ros_distro: humble
+      ros_metapackage: ros-base
+
+- name: "Install ros2 foxy ros-base"
+  hosts: focal_foxy
+  tasks:
+  - include_role:
+      name: "dreuter.ros2"
+    vars:
+      ros_distro: foxy
+      ros_metapackage: ros-base
+
+- name: "Install ros2 galactic ros-base"
+  hosts: focal_galactic
+  tasks:
+  - include_role:
+      name: "dreuter.ros2"
+    vars:
+      ros_distro: galactic
+      ros_metapackage: ros-base

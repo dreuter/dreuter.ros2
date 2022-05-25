@@ -4,8 +4,18 @@ dependency:
 driver:
   name: podman
 platforms:
-  - name: instance
-    image: quay.io/centos/centos:stream8
+  - name: jammy_rolling
+    image: dreuter/ubuntu-ansible-ready:jammy
+    pre_build_image: true
+  - name: jammy_humble
+    image: dreuter/ubuntu-ansible-ready:jammy
+    pre_build_image: true
+
+  - name: focal_foxy
+    image: dreuter/ubuntu-ansible-ready:focal
+    pre_build_image: true
+  - name: focal_galactic
+    image: dreuter/ubuntu-ansible-ready:focal
     pre_build_image: true
 provisioner:
   name: ansible
