@@ -13,6 +13,25 @@
     cache_valid_time: 3600
   become: yes
 
+- name: Ensure universe is enabled
+  shell: apt-cache policy | grep universe
+  register: universe_enabled
+  changed_when: false
+  failed_when: false
+
+- name: Install "add-apt-repository"
+  apt:
+    pkg:
+    - software-properties-common
+    state: present
+  become: yes
+  when: universe_enabled.rc != 0
+
+- name: Ensure universe is enabled
+  shell: add-apt-repository universe
+  become: yes
+  when: universe_enabled.rc != 0
+
 - name: Ensure `ca-certificates` and `gnupg` are installed
   apt:
     pkg:
