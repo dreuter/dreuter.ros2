@@ -1,2 +1,3 @@
 ---
-# defaults file for dreuter.ros2
+ros_distro: rolling
+ros_metapackage: desktop

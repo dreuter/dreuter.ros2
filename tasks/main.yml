@@ -2,3 +2,47 @@
 - name: This role only works on Ubuntu
   assert:
     that: ansible_facts['distribution'] == 'Ubuntu'
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  become: yes
+
+- name: Ensure `ca-certificates` and `gnupg` are installed
+  apt:
+    pkg:
+    - ca-certificates
+    - gnupg
+    state: present
+  become: yes
+
+- name: Download ros keyring
+  get_url:
+    url: https://raw.githubusercontent.com/ros/rosdistro/master/ros.key
+    dest: /usr/share/keyrings/ros-archive-keyring.gpg
+  become: yes
+
+- name: Figure out architecture
+  shell: dpkg --print-architecture
+  register: dpkg_architecture
+  changed_when: no
+
+- name: Add ROS repository
+  apt_repository:
+    repo: deb [arch={{ dpkg_architecture.stdout }} signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu {{ ansible_facts['distribution_release'] }} main
+    state: present
+    filename: ros2
+    update_cache: yes
+  become: yes
+
+- name: Make sure all packages are up to date (as recommmended by the installation instructions)
+  apt:
+    upgrade: safe
+  become: yes
+
+- name: Install the desired ros meta package
+  apt:
+    pkg: ros-{{ ros_distro }}-{{ ros_metapackage }}
+    state: present
+  become: yes
