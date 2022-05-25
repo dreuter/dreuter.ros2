@@ -3,6 +3,10 @@
   assert:
     that: ansible_facts['distribution'] == 'Ubuntu'
 
+- name: Ensure that we use a UTF-8 locale
+  assert:
+    that: ansible_env.LANG.endswith('UTF-8')
+
 - name: Update apt cache
   apt:
     update_cache: yes
