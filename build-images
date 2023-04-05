@@ -1,0 +1,2 @@
+podman build -t docker.io/dreuter/ubuntu-ansible-ready:jammy --from ubuntu:jammy ubuntu-ansible-ready
+podman build -t docker.io/dreuter/ubuntu-ansible-ready:focal --from ubuntu:focal ubuntu-ansible-ready

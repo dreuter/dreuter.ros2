@@ -69,3 +69,9 @@
     pkg: ros-{{ ros_distro }}-{{ ros_metapackage }}
     state: present
   become: yes
+
+- name: Install colcon
+  apt:
+    pkg: python3-colcon-common-extensions
+    state: present
+  become: yes

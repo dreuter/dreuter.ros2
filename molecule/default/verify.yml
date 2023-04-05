@@ -7,3 +7,6 @@
   tasks:
   - name: Test if ros can be sourced
     shell: /bin/bash -c "source /opt/ros/*/setup.bash"
+
+  - name: Run ros2 doctor
+    shell: /bin/bash -c "source /opt/ros/*/setup.bash && ros2 doctor"
